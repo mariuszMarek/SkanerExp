@@ -19,9 +19,9 @@ include_once("interfaceLogin.php");
 			$this->password = $password;
 			$zapytanie  = "SELECT lvlOfAcces FROM loginy WHERE login = '".$this->log ."' AND password = '".$this->password ."'";
 			// SELECT lvlOfAcces FROM loginy WHERE login = 'test' AND password = 'test'
-			// echo $zapytanie."<br>";
+			echo $zapytanie."<br>";
 			$result 	= mysqli_query($this->dbConnection,$zapytanie); 
-			$liczbaWierszy = mysqli_num_fields($result);
+			// $liczbaWierszy = mysqli_num_fields($result);
 
 			while($wiersz = mysqli_fetch_array($result))
 			{
