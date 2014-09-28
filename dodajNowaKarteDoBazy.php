@@ -65,7 +65,13 @@ if(isset($_SESSION['liczbaPunktow']))	{$liczbaPunktow = $_SESSION['liczbaPunktow
              <center id="test">Główna Strona</center>
 			 <?php if(isset($nrKartyPodany) and $nrKartyPodany == 1)
 					{ ?>
-					<p id="kartyNumer">Dodaj kartę o numerze <?php echo $nrKarty; ?> </p>
+					<p id="kartyNumer">Dodajesz kartę o numerze <?php echo $nrKarty; ?> 
+					<?php if(isset($liczbaPunktowPodana) and $liczbaPunktowPodana == 1)
+							{ ?>
+							i o ilości punktów <?php echo $liczbaPunktow; ?>
+					<?php	} ?>
+					</p>
+
 			<?php	} ?>
 				<br>
 				<br>
@@ -76,7 +82,9 @@ if(isset($_SESSION['liczbaPunktow']))	{$liczbaPunktow = $_SESSION['liczbaPunktow
 					<li><input type="text" name="Nick" placeHolder="Nick"  			  onkeyup="expand(this,'Nick');" >				</li>
 					<li><input type="text" name="EXP"  placeHolder="EXP" onkeyup="expand(this,'EXP');" >							</li>
 					<li><input type="number" step ="1" name="LVL"  placeHolder="Startowy Poziom"  min="1">							</li>
-					<li><input type="number" step="0.001" name="mnoznik"  placeHolder="Mnoznik np 1,001" min="0.001" >						</li>
+					<li><input type="number" step="0.001" name="mnoznik"  placeHolder="Mnoznik np 1,001" min="0.001" >				</li>
+					<li><input type="number" step="1" name="nrKarty"  placeHolder="Numer Karty" min="1"  <?php if(isset($nrKarty)){echo "value=\"".$nrKarty."\"";} ?> > </li>
+					<li><input type="number" step="50" name="liczbaPunktow"  placeHolder="Liczba punktów początkowych" min="50"  <?php if(isset($liczbaPunktow)){echo "value=\"".$liczbaPunktow."\"";} ?> > </li>
 					
 					
 				</ul>
