@@ -24,16 +24,46 @@
 			$this->mnoznik 			= $elementyKarty['K_mnoznik'];
 			$this->liczbaPunktow	= $elementyKarty['K_liczbaPunktow'];
 			$this->nrKarty			= $elementyKarty['K_nrKarty '];
-			$this->$troophy			= $elementyKarty['tytuly'];
+			$this->troophy			= $elementyKarty['tytuly'];
+		}
+		public function selectCard($nrKarty)
+		{
+		
+		}
+		public function addPointsToCard($nrKarty,$pointsEXP)
+		{
+		
+		}
+		private function zapytania($rodzaj, $opcja)
+		{
+			if($rodzaj == "INSERT")
+			{
+				// $zapytanie = $rodzaj." INTO
+				if($opcja == "dodatki")
+				{
+				foreach($this->troophy as $klucz=>$nazwy)
+				{
+					$sql 	= " INSERT INTO `rodzajestatosow` (`typy`, `nazwyStatusow_idnazwyStatusow`) 
+								VALUES (\'nazwa\', (SELECT `idnazwyStatusow` FROM `nazwyStatusow` WHERE `nazwyStatusow` = \'".$nazwy."\'))";
+					$wynik 	= mysqli_query(self::$polaczenie,$sql);
+					
+					$idTypu 	= mysqli_insert_id(self::$polaczenie);
+					$sql 		= "INSERT INTO `nrkart`(`idnrKart`, `nick`) VALUES (\'999\', \'szatan\')";	
+					$idKarty 	= 
+				
+				}
+				
+				}
 
+			}
 		}
 	}
 
 	// interface karta
 	// {
-		// public function __construct($polaczenie, $arrayOfElements);
-		// public function addCard($elementyKarty);
-		// public function selectCard($nrKarty);
+		// public function __construct($polaczenie);
+		// public function addCard($arrayOfElements);
 		// public function addPointsToCard($nrKarty,$pointsEXP);
-	// }
+		// public function selectCard($nrKarty);
+		// }
 ?>
