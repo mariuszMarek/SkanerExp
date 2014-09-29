@@ -14,15 +14,13 @@ if(isset($_POST))
 	{
 		if(preg_match('/^K_/',$keys))
 		{
-		echo $keys." ".$value."<br>";
+		$tabKarty[$keys] = $value;
 		}
-		// echo $keys." ".$value."<br>";
+
 		if(preg_match('/^tytuly/',$keys))
 		{
-			foreach($value as $name=>$valueName)
-			{
-		echo $name." ".$valueName."<br>";
-			}
+			$tabKarty[$keys] = $value;
+
 		}
 	}
 }
@@ -120,7 +118,7 @@ if(isset($_POST))
 						</select>
 					</span>
 					<li>
-					<input type="text" name="Nick" placeHolder="Nick"  			  onkeyup="expand(this,'Nick');" required>		
+					<input type="text" name="K_Nick" placeHolder="Nick"  			  onkeyup="expand(this,'Nick');" required>		
 					</li>
 
 					<li><input type="number" step="1"		name="K_EXP"  			placeHolder="EXP" onkeyup="expand(this,'EXP');" required>		</li>
