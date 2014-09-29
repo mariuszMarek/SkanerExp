@@ -8,12 +8,24 @@ if(isset($_SESSION['nrKarty']))			{$nrKarty 		= $_SESSION['nrKarty']; 		$nrKarty
 if(isset($_SESSION['liczbaPunktow']))	{$liczbaPunktow = $_SESSION['liczbaPunktow'];	$liczbaPunktowPodana = 1; unset($_SESSION['liczbaPunktow']);}
 
 
-
-foreach($_POST as $keys=>$value)
+if(isset($_POST))
 {
-	
+	foreach($_POST as $keys=>$value)
+	{
+		if(preg_match('/^K_/',$keys))
+		{
+		echo $keys." ".$value."<br>";
+		}
+		// echo $keys." ".$value."<br>";
+		if(preg_match('/^tytuly/',$keys))
+		{
+			foreach($value as $name=>$valueName)
+			{
+		echo $name." ".$valueName."<br>";
+			}
+		}
+	}
 }
-
  ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -95,9 +107,9 @@ foreach($_POST as $keys=>$value)
 				
 					<span class="lista" >
 						<p>		Tytuly/Opcje dla danej karty </p>
-						<select multiple size ="8" name="tytuly">
+						<select multiple size ="8" name="tytuly[]">
 				
-							<option value="Karta Bohatera">Karta bohatera						</option>
+							<option value="Karta_Bohatera">Karta bohatera						</option>
 							<option value="Questy">Questy										</option>
 							<option value="Awatar">Awatar										</option>
 							<option value="20_zetonow">20 zetonow								</option>
@@ -110,13 +122,14 @@ foreach($_POST as $keys=>$value)
 					<li>
 					<input type="text" name="Nick" placeHolder="Nick"  			  onkeyup="expand(this,'Nick');" required>		
 					</li>
-	
-					
-					<li><input type="text" name="EXP"  placeHolder="EXP" onkeyup="expand(this,'EXP');" required>							</li>
-					<li><input type="number" step ="1" name="LVL"  placeHolder="Startowy Poziom"  min="1"required>							</li>
-					<li><input type="number" step="0.001" name="mnoznik"  placeHolder="Mnoznik np 1,001" min="0.001" >						</li>
-					<li><input type="number" step="1" name="nrKarty"  placeHolder="Numer Karty" min="1"  <?php if(isset($nrKarty)){echo "value=\"".$nrKarty."\"";} ?> required> </li>
-					<li><input type="number" step="50" name="liczbaPunktow"  placeHolder="Liczba punktów na start" min="50"  <?php if(isset($liczbaPunktow)){echo "value=\"".$liczbaPunktow."\"";} ?> required> </li>
+
+					<li><input type="number" step="1"		name="K_EXP"  			placeHolder="EXP" onkeyup="expand(this,'EXP');" required>		</li>
+					<li><input type="number" step ="1" 		name="K_LVL"  			placeHolder="Startowy Poziom"  min="1"required>					</li>
+					<li><input type="number" step="0.001" 	name="K_mnoznik"  		placeHolder="Mnoznik np 1,001" min="0.001" >					</li>
+					<li><input type="number" step="1" 		name="K_nrKarty"  		placeHolder="Numer Karty" min="1"  
+					<?php if(isset($nrKarty)){echo "value=\"".$nrKarty."\"";} ?> required> 															</li>
+					<li><input type="number" step="50" 		name="K_liczbaPunktow"  placeHolder="Liczba punktów na start" min="50"  
+					<?php if(isset($liczbaPunktow)){echo "value=\"".$liczbaPunktow."\"";} ?> required> 												</li>
 					
 					<input type="submit" name="dodaj" value="Dodaj kartę"> <input type="reset" value="Wyczyść formularz">
 				</ul>

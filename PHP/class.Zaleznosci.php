@@ -1,7 +1,9 @@
 <?php
 include_once("PHP/class.Skaner.php");
 include_once("PHP/class.PolaczZBazaMySql.php");
-include_once("PHP/class.Login.php");	
+include_once("PHP/class.Login.php");
+include_once("PHP/class.Karta.php");
+	
 class Kontener
 {
 	private static $polaczenieBaza;
