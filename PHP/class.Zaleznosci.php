@@ -35,6 +35,10 @@ class Kontener
 		// $karta = new Karta(self::$polaczenieBaza, $elementyKarty);
 		// return $karta;
 	// }
+	public function getKarta($nrKarty)
+	{
+		return Karta::selectCard($nrKarty);
+	}
 }
 
 ?>

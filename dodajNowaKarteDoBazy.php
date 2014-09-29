@@ -1,12 +1,12 @@
 <?php session_start();
-
+include_once("class.Zaleznosci.php");
 $wyswietl = 1;
 if(isset($_POST['wylogowanie']) == "1")	{$_SESSION["zalogowany"] = 0;$wyswietl = 0;}
 if(!isset($_SESSION["zalogowany"]))		{$_SESSION["zalogowany"] = 0;$wyswietl = 0;}
 
 if(isset($_SESSION['nrKarty']))			{$nrKarty 		= $_SESSION['nrKarty']; 		$nrKartyPodany = 1;		  unset($_SESSION['nrKarty']);}
 if(isset($_SESSION['liczbaPunktow']))	{$liczbaPunktow = $_SESSION['liczbaPunktow'];	$liczbaPunktowPodana = 1; unset($_SESSION['liczbaPunktow']);}
-
+unset($tabKarty);
 
 if(isset($_POST))
 {
@@ -20,9 +20,12 @@ if(isset($_POST))
 		if(preg_match('/^tytuly/',$keys))
 		{
 			$tabKarty[$keys] = $value;
-
 		}
 	}
+}
+if(isset($tabKarty))
+{
+	$kontener = new Kontener();
 }
  ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">

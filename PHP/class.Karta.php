@@ -11,10 +11,13 @@
 		private $liczbaPunktow;
 		
 		private static $polaczenie;
-		public function __construct($polacznie, $elementyKarty)
+		public function __construct($polacznie)
 		{
-			$this->zawartoscKarty	= $elementyKarty;
 			self::$polaczenie 		= $polacznie;
+			
+		}
+		public function addCard($elementyKarty)
+		{
 			$this->nick 			= $elementyKarty['K_Nick'];
 			$this->exp  			= $elementyKarty['K_EXP'];
 			$this->lvl				= $elementyKarty['K_LVL'];
@@ -22,13 +25,14 @@
 			$this->liczbaPunktow	= $elementyKarty['K_liczbaPunktow'];
 			$this->nrKarty			= $elementyKarty['K_nrKarty '];
 			$this->$troophy			= $elementyKarty['tytuly'];
+
 		}
 	}
 
 	// interface karta
 	// {
 		// public function __construct($polaczenie, $arrayOfElements);
-		// public function addCard($nrKarty);
+		// public function addCard($elementyKarty);
 		// public function selectCard($nrKarty);
 		// public function addPointsToCard($nrKarty,$pointsEXP);
 	// }
