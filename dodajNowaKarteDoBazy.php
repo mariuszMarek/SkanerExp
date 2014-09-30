@@ -12,15 +12,8 @@ if(isset($_POST))
 {
 	foreach($_POST as $keys=>$value)
 	{
-		if(preg_match('/^K_/',$keys))
-		{
-		$tabKarty[$keys] = $value;
-		}
-
-		if(preg_match('/^tytuly/',$keys))
-		{
-			$tabKarty[$keys] = $value;
-		}
+		if(preg_match('/^K_/',$keys))		{$tabKarty[$keys] = $value;}
+		if(preg_match('/^tytuly/',$keys))	{$tabKarty[$keys] = $value;}
 	}
 }
 if(isset($tabKarty))
