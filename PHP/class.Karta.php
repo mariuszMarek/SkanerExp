@@ -10,6 +10,7 @@
 		private $nrKarty;
 		private $liczbaPunktow;
 		private $idKartyWBazie;
+		private $idPoziomuKartyWBazie;
 		
 		private static $polaczenie;
 		public function __construct($polacznie)
@@ -37,10 +38,10 @@
 		{
 		
 		}
-		protected function inserty($opcja)
+		protected function inserty()
 		{
 			// $zapytanie = $rodzaj." INTO
-			if($opcja == "dodatki")
+			if(isset($this->troophy))
 			{
 				foreach($this->troophy as $klucz=>$nazwy)
 				{
@@ -58,18 +59,45 @@
 				
 				}
 			}
-			if($opcja == "karta")
+			if(isset($this->nrKarty ) and isset($this->nick))
 			{
+				$sql 		= "INSERT INTO `nrkart`(`idnrKart`, `nick`) VALUES ('".$this->nrKarty ."', '".$this->nick ."')";	
+				$wynik 		= mysqli_query(self::$polaczenie,$sql);
+				if(!$wynik) 	{echo "nie udalo sie dodac karty nowej, przerywam skrypt<br>"; exit;}
+				$idKarty 	= mysqli_insert_id(self::$polaczenie);
 				if(!isset($this->idKartyWBazie))
 				{
-					$sql 		= "INSERT INTO `nrkart`(`idnrKart`, `nick`) VALUES ('".$this->nrKarty ."', '".$this->nick ."')";	
-					$wynik 		= mysqli_query(self::$polaczenie,$sql);
-					if(!$wynik) 	{echo "nie udalo sie dodac karty nowej, przerywam skrypt<br>"; exit;}
-					$idKarty 	= mysqli_insert_id(self::$polaczenie);
+					$this->idKartyWBazie = $idKarty;
 				}
+			}
+			if(isset($this->exp) and ($this->nrKarty))
+			{
+				$sql = "SELECT `poziomy_idKlienta` FROM `nrKart` WHERE `idnrKart` = '".$this->nrKarty."'";
+				$result = mysqli_query(self::$polaczenie, $sql);
+				if(mysqli_num_rows($result) == 0)
+				{
+					if($this->lvl > 1) // cos tutaj zjebalem, a co w przypadku gdy poziom jest wiekszy od wskazanego ale karta juz istnieje ?!
+					{
+						$sql = "INSERT INTO `poziomy`(`idKlienta`, `poziom`, `mnoznik`)
+								VALUES ((SELECT MAX(`idKlienta`) FROM `poziomy` GROUP BY `idKlienta` ), '".$this->lvl ."', '".$this->mnoznik."')";
+					}
+					elseif (isset($this->lvl)) 
+					{						
+					   $sql = "INSERT INTO `poziomy`(`idKlienta`, `mnoznik`)
+                                VALUES ((SELECT MAX(`idKlienta`) FROM `poziomy` GROUP BY `idKlienta` ),'".$this->mnoznik."')";	
+					}
+                    /*else
+                    {
+                         $sql = "INSERT INTO `poziomy`(`idKlienta`, `mnoznik`)
+                                VALUES ((SELECT MAX(`idKlienta`) FROM `poziomy` GROUP BY `idKlienta` ),'".$this->mnoznik."')";  
+                    }*/
+                    
+					
+				}
+				
 			}			
 		}
-		protected function selecty($opcja)
+		protected function selecty()
 		{
 		
 		}

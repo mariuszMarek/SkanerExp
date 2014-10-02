@@ -13,7 +13,7 @@ include_once("interfaceSkaner.php");
 			public function walidacjaKarty($nr)
 			{
 				// polaczenie do bazy i sprawdzenie czy istnieje karta w systemie;
-				$zapytanieKontrolne = "SELECT idnrKart FROM nrkart WHERE idnrKart ='".$nr."'";
+				$zapytanieKontrolne = "SELECT `idnrKart` FROM `nrkart` WHERE `idnrKart` ='".$nr."'";
 				$wynik = mysqli_query(self::$polaczenie,$zapytanieKontrolne);
 				$liczbaWierszy = mysqli_num_rows($wynik);
 				// echo $liczbaWierszy."##<br>";
@@ -39,18 +39,21 @@ include_once("interfaceSkaner.php");
 			}
 			public function savePointsToCard($nrKarty,$liczbaPunktow)
 			{
-				
-				$zapytanie = "
-				UPDATE poziomy
-				SET iloscDoswiadczenia = iloscDoswiadczenia +'".$liczbaPunktow."'
-				WHERE idKlienta IN (SELECT poziomu_idKlienta FROM nrkart WHERE idnrKart = \'".$nrKarty."\')";
-				$wynik = mysqli_query(self::$polaczenie,$zapytanie);
-				if(!$wynik)
+				if($this->walidacjaKarty($nrKarty))
 				{
-					// echo "nie udalo sie zrobic updatu dla numeru karty ".$nrKarty." z iloscia punktow ".$liczbaPunktow."<br>";
-					return false;
-				}
+					$zapytanie = "
+					UPDATE `poziomy`
+					SET `exp` = `exp` +'".$liczbaPunktow."'
+					WHERE `idKlienta` IN (SELECT `poziomu_idKlienta` FROM `nrkart` WHERE idnrKart = \'".$nrKarty."\')";
+					$wynik = mysqli_query(self::$polaczenie,$zapytanie);
+					if(!$wynik)
+					{
+						// echo "nie udalo sie zrobic updatu dla numeru karty ".$nrKarty." z iloscia punktow ".$liczbaPunktow."<br>";
+						return false;
+					}
 				return true;
+				}
+				return false;
 			}
 	}
 ?>
