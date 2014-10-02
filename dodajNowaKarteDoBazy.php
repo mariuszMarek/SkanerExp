@@ -21,6 +21,7 @@ if(isset($tabKarty))
 	$kontener = new Kontener();
 	$nowaKarta = Kontener::nowaKarta();
 	$nowaKarta->addCard($tabKarty);
+	// echo "LOL";
 	unset($tabKarty);
 	// unset($_POST['tytuly']
 }
