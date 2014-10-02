@@ -7,7 +7,6 @@
 		
 		function __construct($nrKarty);
 		public function wyswietlInformacje();
-		public function zmienNumerKarty();
 		public function otworzRachunek();
 	}
 ?>

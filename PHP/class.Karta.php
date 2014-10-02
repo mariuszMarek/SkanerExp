@@ -25,79 +25,68 @@
 			$this->lvl				= $elementyKarty['K_LVL'];
 			$this->mnoznik 			= $elementyKarty['K_mnoznik'];
 			$this->liczbaPunktow	= $elementyKarty['K_liczbaPunktow'];
-			$this->nrKarty			= $elementyKarty['K_nrKarty '];
+			$this->nrKarty			= $elementyKarty['K_nrKarty'];
 			$this->troophy			= $elementyKarty['tytuly'];
 			
 			if(!isset($this->idKartyWBazie))		{$this->inserty("karta");}
 		}
-		public function selectCard($nrKarty)
+		public function selectCard($nrKarty) // do wyswietlenia karty
 		{
-		
+			// $sql = "SELECT *
+			
 		}
-		public function addPointsToCard($nrKarty,$pointsEXP)
+		protected function inserty() // na tym etapie wiem ze nie ma karty o danym numerze w bazie
 		{
-		
-		}
-		protected function inserty()
-		{
-			// $zapytanie = $rodzaj." INTO
+			$wynik = true;
 			if(isset($this->troophy))
 			{
-				foreach($this->troophy as $klucz=>$nazwy)
+				foreach($this->troophy as $klucz)
 				{
-					$sql 		= " INSERT INTO `rodzajestatosow` (`typy`, `nazwyStatusow_idnazwyStatusow`) 
-									VALUES (\'nazwa\', (SELECT `idnazwyStatusow` FROM `nazwyStatusow` WHERE `nazwyStatusow` = \'".$nazwy."\'))";
-					$wynik 		= mysqli_query(self::$polaczenie,$sql);
-					if(!$wynik) 	{echo "nie udalo sie dodac rodzaju statosow, przerywam skrypt<br>"; exit;}
-					$idTypu 	= mysqli_insert_id(self::$polaczenie);
-		
-					$idKarty 	= $this->idKartyWBazie;
-					
-					$sql 		= "INSERT INTO `nrKart_has_RodzajeStatosow` (`nrKart_idnrKart`,`RodzajeStatosow_idRodzajeStatosow`) VALUES ('".$idKarty."', '".$idTypu."')";
-					$wynik 		= mysqli_query(self::$polaczenie,$sql);
-					if(!$wynik) 	{echo "nie udalo sie dodac karty nowej, przerywam skrypt<br>"; exit;}
-				
+					foreach($klucz as $indeks=>$nazwy)
+					{
+						$sql 		= " INSERT INTO `rodzajestatosow` (`typy`, `nazwyStatusow_idnazwyStatusow`) 
+										VALUES ('nazwa', (SELECT `idnazwyStatusow` FROM `nazwyStatusow` WHERE `nazwyStatusow` = '".$nazwy."'))";
+						// $wynik 		= mysqli_query(self::$polaczenie,$sql);
+						echo $sql."<br>";
+						if(!$wynik) 	{echo "nie udalo sie dodac rodzaju statosow, przerywam skrypt<br>";  return false; exit;}
+						$idTypu 	= mysqli_insert_id(self::$polaczenie);
+			
+						$idKarty 	= $this->idKartyWBazie;
+						
+						$sql 		= "INSERT INTO `nrKart_has_RodzajeStatosow` (`nrKart_idnrKart`,`RodzajeStatosow_idRodzajeStatosow`) VALUES ('".$idKarty."', '".$idTypu."')";
+						// $wynik 		= mysqli_query(self::$polaczenie,$sql);
+						if(!$wynik) 	{echo "nie udalo sie dodac osiagniec do nowej karty, przerywam skrypt<br>"; return false; exit;}
+					}
 				}
 			}
+			
 			if(isset($this->nrKarty ) and isset($this->nick))
 			{
 				$sql 		= "INSERT INTO `nrkart`(`idnrKart`, `nick`) VALUES ('".$this->nrKarty ."', '".$this->nick ."')";	
-				$wynik 		= mysqli_query(self::$polaczenie,$sql);
-				if(!$wynik) 	{echo "nie udalo sie dodac karty nowej, przerywam skrypt<br>"; exit;}
+				echo $sql."<br>";
+				// $wynik 		= mysqli_query(self::$polaczenie,$sql);
+				if(!$wynik) 	{echo "nie udalo sie dodac karty nowej, przerywam skrypt<br>";  return false; exit;}
 				$idKarty 	= mysqli_insert_id(self::$polaczenie);
 				if(!isset($this->idKartyWBazie))
 				{
 					$this->idKartyWBazie = $idKarty;
 				}
 			}
-			if(isset($this->exp) and ($this->nrKarty))
+			
+			if(isset($this->exp) and isset($this->nrKarty) and isset($this->idKartyWBazie) and isset($this->liczbaPunktow))
 			{
-				$sql = "SELECT `poziomy_idKlienta` FROM `nrKart` WHERE `idnrKart` = '".$this->nrKarty."'";
-				$result = mysqli_query(self::$polaczenie, $sql);
-				if(mysqli_num_rows($result) == 0)
-				{
-					if($this->lvl > 1) // cos tutaj zjebalem, a co w przypadku gdy poziom jest wiekszy od wskazanego ale karta juz istnieje ?!
-					{
-						$sql = "INSERT INTO `poziomy`(`idKlienta`, `poziom`, `mnoznik`)
-								VALUES ((SELECT MAX(`idKlienta`) FROM `poziomy` GROUP BY `idKlienta` ), '".$this->lvl ."', '".$this->mnoznik."')";
-					}
-					elseif (isset($this->lvl)) 
-					{						
-					   $sql = "INSERT INTO `poziomy`(`idKlienta`, `mnoznik`)
-                                VALUES ((SELECT MAX(`idKlienta`) FROM `poziomy` GROUP BY `idKlienta` ),'".$this->mnoznik."')";	
-					}
-                    /*else
-                    {
-                         $sql = "INSERT INTO `poziomy`(`idKlienta`, `mnoznik`)
-                                VALUES ((SELECT MAX(`idKlienta`) FROM `poziomy` GROUP BY `idKlienta` ),'".$this->mnoznik."')";  
-                    }*/
-                    
-					
-				}
-				
+				$sql = "INSERT INTO `poziomy`(`idKlienta`, `poziom`, `mnoznik`, `exp`)
+						VALUES ('".$this->idKartyWBazie ."', '".$this->lvl ."', '".$this->mnoznik ."', '".$this->liczbaPunktow ."')";
+						// $wynik 		= mysqli_query(self::$polaczenie,$sql);
+						echo $sql."<br>";
+				if(!$wynik) 	{echo "nie udalo sie dodac poziomu do karty nowej, przerywam skrypt<br>"; return false;  exit;}			
 			}			
 		}
 		protected function selecty()
+		{
+		
+		}
+		protected function updejtyKarty()
 		{
 		
 		}

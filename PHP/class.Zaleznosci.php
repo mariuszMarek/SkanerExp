@@ -2,7 +2,7 @@
 include_once("PHP/class.Skaner.php");
 include_once("PHP/class.PolaczZBazaMySql.php");
 include_once("PHP/class.Login.php");
-// include_once("PHP/class.Karta.php");
+include_once("PHP/class.Karta.php");
 	
 class Kontener
 {
@@ -30,14 +30,10 @@ class Kontener
 		$karta = new Skaner(self::$polaczenieBaza);
 		return $karta;
 	}
-	// public static function karta($elementyKarty)
-	// {
-		// $karta = new Karta(self::$polaczenieBaza, $elementyKarty);
-		// return $karta;
-	// }
-	public function getKarta($nrKarty)
+	public static function nowaKarta()
 	{
-		return Karta::selectCard($nrKarty);
+		$nowaKarta = new KartaEXP(self::$polaczenieBaza);
+		return $nowaKarta;
 	}
 }
 

@@ -1,5 +1,5 @@
 <?php session_start();
-include_once("class.Zaleznosci.php");
+include_once("PHP/class.Zaleznosci.php");
 $wyswietl = 1;
 if(isset($_POST['wylogowanie']) == "1")	{$_SESSION["zalogowany"] = 0;$wyswietl = 0;}
 if(!isset($_SESSION["zalogowany"]))		{$_SESSION["zalogowany"] = 0;$wyswietl = 0;}
@@ -13,12 +13,16 @@ if(isset($_POST))
 	foreach($_POST as $keys=>$value)
 	{
 		if(preg_match('/^K_/',$keys))		{$tabKarty[$keys] = $value;}
-		if(preg_match('/^tytuly/',$keys))	{$tabKarty[$keys] = $value;}
+		if(preg_match('/^tytuly/',$keys))	{$tabKarty['tytuly'][$keys] = $value;}
 	}
 }
 if(isset($tabKarty))
 {
 	$kontener = new Kontener();
+	$nowaKarta = Kontener::nowaKarta();
+	$nowaKarta->addCard($tabKarty);
+	unset($tabKarty);
+	// unset($_POST['tytuly']
 }
  ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -84,7 +88,7 @@ if(isset($tabKarty))
              <center id="test">Dodanie nowej karty do systemu</center>
 			 <?php if(isset($nrKartyPodany) and $nrKartyPodany == 1)
 					{ ?>
-					<p id="kartyNumer">Dodajesz kartę o numerze <?php echo $nrKarty; ?> 
+					<p id="kartyNumer">Dodajesz karte o numerze <?php echo $nrKarty; ?> 
 					<?php if(isset($liczbaPunktowPodana) and $liczbaPunktowPodana == 1)
 							{ ?>
 							i o ilości punktów <?php echo $liczbaPunktow; ?>
@@ -103,9 +107,9 @@ if(isset($tabKarty))
 						<p>		Tytuly/Opcje dla danej karty </p>
 						<select multiple size ="8" name="tytuly[]">
 				
-							<option value="Karta_Bohatera">Karta bohatera						</option>
+							<option value="Karta_Bohatera" selected >Karta bohatera						</option>
 							<option value="Questy">Questy										</option>
-							<option value="Awatar">Awatar										</option>
+							<option value="Awatar" selected >Awatar										</option>
 							<option value="20_zetonow">20 zetonow								</option>
 							<option value="Kufel">Kufel											</option>
 							<option value="Kufel_ranga_1">Kufel ulepszony 1						</option>
@@ -114,15 +118,15 @@ if(isset($tabKarty))
 						</select>
 					</span>
 					<li>
-					<input type="text" name="K_Nick" placeHolder="Nick"  			  onkeyup="expand(this,'Nick');" required>		
+					<input type="text" name="K_Nick" placeHolder="Nick"  			  onkeyup="expand(this,'Nick');" value ="Marian" required>		
 					</li>
 
-					<li><input type="number" step="1"		name="K_EXP"  			placeHolder="EXP" onkeyup="expand(this,'EXP');" required>		</li>
-					<li><input type="number" step ="1" 		name="K_LVL"  			placeHolder="Startowy Poziom"  min="1"required>					</li>
-					<li><input type="number" step="0.001" 	name="K_mnoznik"  		placeHolder="Mnoznik np 1,001" min="0.001" >					</li>
-					<li><input type="number" step="1" 		name="K_nrKarty"  		placeHolder="Numer Karty" min="1"  
+					<li><input type="number" step="1"		name="K_EXP"  			placeHolder="EXP" onkeyup="expand(this,'EXP');" value = "666" required>		</li>
+					<li><input type="number" step ="1" 		name="K_LVL"  			placeHolder="Startowy Poziom"  min="1"required value = "666">					</li>
+					<li><input type="number" step="0.001" 	name="K_mnoznik"  		placeHolder="Mnoznik np 1,001" min="0.001" value = "666">					</li>
+					<li><input type="number" step="1" 		name="K_nrKarty"  		placeHolder="Numer Karty" min="1" value = "666"  
 					<?php if(isset($nrKarty)){echo "value=\"".$nrKarty."\"";} ?> required> 															</li>
-					<li><input type="number" step="50" 		name="K_liczbaPunktow"  placeHolder="Liczba punktów na start" min="50"  
+					<li><input type="number" step="50" 		name="K_liczbaPunktow"  placeHolder="Liczba punktów na start" min="50" value = "650"  
 					<?php if(isset($liczbaPunktow)){echo "value=\"".$liczbaPunktow."\"";} ?> required> 												</li>
 					
 					<input type="submit" name="dodaj" value="Dodaj kartę"> <input type="reset" value="Wyczyść formularz">
