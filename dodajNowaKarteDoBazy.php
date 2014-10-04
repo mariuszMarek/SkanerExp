@@ -16,11 +16,24 @@ if(isset($_POST))
 		if(preg_match('/^tytuly/',$keys))	{$tabKarty['tytuly'][$keys] = $value;}
 	}
 }
+$duplikat = false;
 if(isset($tabKarty))
 {
 	$kontener = new Kontener();
 	$nowaKarta = Kontener::nowaKarta();
-	$nowaKarta->addCard($tabKarty);
+	$wynikDoadawaniaKarty = $nowaKarta->addCard($tabKarty);
+
+	if($wynikDoadawaniaKarty == 1062)
+	{
+		$duplikat = true;
+		echo "duplika LOLOLO";	
+	}
+	elseif(!$wynikDoadawaniaKarty)
+	{
+	echo "nie obsługiwany błąd, proszę spróbować jeszcze raz z tymi samymi ustawieniami lub dać mi znać";
+	}
+	
+	
 	// echo "LOL";
 	unset($tabKarty);
 	// unset($_POST['tytuly']
@@ -54,6 +67,8 @@ if(isset($tabKarty))
 		style.width = Math.max(desiredW, textbox.startW) + 'px';
 	}
 	
+	function funkcjaDuplikat() {alert("Podany Numer karty juz jest w bazie danych !");}
+	
 	</script>
 	<style>
 .lista {
@@ -63,7 +78,17 @@ if(isset($tabKarty))
 }
 </style>
   </head>
-  <body>
+  <?php    
+  if($duplikat = true)
+  { ?>
+	<body onload="funkcjaDuplikat()">
+  <?php }
+  else
+	{ ?>
+	<body>
+  <?php 
+	}
+  ?>
         <div id="sidebar">
               <h1><a href="index.php">Menu</a></h1>
              <p> Wybierz poniżej co chcesz zrobić</p>
