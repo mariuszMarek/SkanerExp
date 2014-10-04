@@ -15,6 +15,7 @@ if(isset($_POST))
 		if(preg_match('/^K_/',$keys))		{$tabKarty[$keys] = $value;}
 		if(preg_match('/^tytuly/',$keys))	{$tabKarty['tytuly'][$keys] = $value;}
 	}
+	unset($_POST);
 }
 $duplikat = false;
 if(isset($tabKarty))
@@ -22,21 +23,19 @@ if(isset($tabKarty))
 	$kontener = new Kontener();
 	$nowaKarta = Kontener::nowaKarta();
 	$wynikDoadawaniaKarty = $nowaKarta->addCard($tabKarty);
-
-	if($wynikDoadawaniaKarty == 1062)
+	if($wynikDoadawaniaKarty === true)
 	{
-		$duplikat = true;
-		echo "duplika LOLOLO";	
+	$duplikat = false;
+	$wynikDoadawaniaKarty = 0;
 	}
-	elseif(!$wynikDoadawaniaKarty)
+	if($wynikDoadawaniaKarty === 1062)	{$duplikat = true;
+	}
+	elseif($wynikDoadawaniaKarty != 0)
 	{
 	echo "nie obsługiwany błąd, proszę spróbować jeszcze raz z tymi samymi ustawieniami lub dać mi znać";
 	}
-	
-	
-	// echo "LOL";
+
 	unset($tabKarty);
-	// unset($_POST['tytuly']
 }
  ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -67,7 +66,7 @@ if(isset($tabKarty))
 		style.width = Math.max(desiredW, textbox.startW) + 'px';
 	}
 	
-	function funkcjaDuplikat() {alert("Podany Numer karty juz jest w bazie danych !");}
+	function alertFunction(trescBledu) {alert(trescBledu);}
 	
 	</script>
 	<style>
@@ -79,9 +78,9 @@ if(isset($tabKarty))
 </style>
   </head>
   <?php    
-  if($duplikat = true)
+  if($duplikat == true)
   { ?>
-	<body onload="funkcjaDuplikat()">
+	<body onload="alertFunction('Podany numer jest juz w bazie danych')">
   <?php }
   else
 	{ ?>

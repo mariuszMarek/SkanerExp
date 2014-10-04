@@ -28,9 +28,9 @@ include_once("interfaceSkaner.php");
 				if($this->walidacjaKarty($nr))
 				{
 					$this->nrKarty = $nr;
-					return 1;
+					return true;
 				}
-				return 2;
+				return false;
 			}
 			public function getNrKarty()
 			{
