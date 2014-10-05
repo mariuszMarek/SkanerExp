@@ -29,9 +29,9 @@ if(isset($_SESSION['nrKarty']) and isset($_SESSION['liczbaPunktow']))
 	if(!$wynik) {header('refresh: 0; url=http://localhost/skanerEXP/dodajNowaKarteDoBazy.php');}
 	else
 	{
-	echo $nrStrony." nrStron<br>";
-	echo $nrKarty." nrKarty<br>";
-	echo $liczbaPunktow." liczbaPunktow<br>";
+	// echo $nrStrony." nrStron<br>";
+	// echo $nrKarty." nrKarty<br>";
+	// echo $liczbaPunktow." liczbaPunktow<br>";
 
 	unset($_SESSION['nrKarty']);
 	unset($_SESSION['liczbaPunktow']);
@@ -71,6 +71,7 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 								<li><a href="logowanie.php"><b>»</b>Nie zalogowany</a></li>
 					<?php					}else
 					{?>
+					    <li><a href="dodajNowaKarteDoBazy.php"><b>»</b>Dodaj nowego klienta</a></li>
 						<li><b> </b>Zalogowany</li>
 						<form method = "post">
 						<input type ="hidden" name = "wylogowanie" value = "1">

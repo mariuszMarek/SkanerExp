@@ -31,6 +31,7 @@ if($_SESSION["zalogowany"] == 0)		{$wyswietl = 0;}
 				<?php					}else
 				{?>
 					<li><a href="dodajNowaKarteDoBazy.php"><b>»</b>Dodaj nowego klienta</a></li>
+					<li><a href="usunKarteZBazy.php"><b>»</b>Usuń klienta</a></li>
 					<li><b> </b>Zalogowany</li>
 					<form method = "post">
 					<input type ="hidden" name = "wylogowanie" value = "1">

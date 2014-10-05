@@ -146,12 +146,12 @@ if(isset($tabKarty))
 					<input type="text" name="K_Nick" placeHolder="Nick"  			  onkeyup="expand(this,'Nick');" value ="Marian" required>		
 					</li>
 
-					<li><input type="number" step="1"		name="K_EXP"  			placeHolder="EXP" onkeyup="expand(this,'EXP');" value = "666" required>		</li>
-					<li><input type="number" step ="1" 		name="K_LVL"  			placeHolder="Startowy Poziom"  min="1"required value = "666">					</li>
-					<li><input type="number" step="0.001" 	name="K_mnoznik"  		placeHolder="Mnoznik np 1,001" min="0.001" value = "666">					</li>
-					<li><input type="number" step="1" 		name="K_nrKarty"  		placeHolder="Numer Karty" min="1" value = "666"  
+					<li><input type="number" step="1"		name="K_EXP"  			placeHolder="EXP" onkeyup="expand(this,'EXP');" value = "10" required>		</li>
+					<li><input type="number" step ="1" 		name="K_LVL"  			placeHolder="Startowy Poziom"  min="1"required value = "1">					</li>
+					<li><input type="number" step="0.001" 	name="K_mnoznik"  		placeHolder="Mnoznik np 1,001" min="0.001" value = "0.999">					</li>
+					<li><input type="number" step="1" 		name="K_nrKarty"  		placeHolder="Numer Karty" min="1" value = "1"  
 					<?php if(isset($nrKarty)){echo "value=\"".$nrKarty."\"";} ?> required> 															</li>
-					<li><input type="number" step="50" 		name="K_liczbaPunktow"  placeHolder="Liczba punktów na start" min="50" value = "650"  
+					<li><input type="number" step="50" 		name="K_liczbaPunktow"  placeHolder="Liczba punktów na start" min="50" value = "50"  
 					<?php if(isset($liczbaPunktow)){echo "value=\"".$liczbaPunktow."\"";} ?> required> 												</li>
 					
 					<input type="submit" name="dodaj" value="Dodaj kartę"> <input type="reset" value="Wyczyść formularz">

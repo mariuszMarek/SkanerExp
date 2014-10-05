@@ -41,6 +41,8 @@ include_once("interfaceSkaner.php");
 			{
 				if($this->walidacjaKarty($nrKarty))
 				{
+				
+					// jeszcze select by pobrac mnoznik punktow
 					$zapytanie = "
 					UPDATE `poziomy`
 					SET `exp` = `exp` +'".$liczbaPunktow."'
@@ -51,7 +53,7 @@ include_once("interfaceSkaner.php");
 						// echo "nie udalo sie zrobic updatu dla numeru karty ".$nrKarty." z iloscia punktow ".$liczbaPunktow."<br>";
 						return false;
 					}
-				return true;
+					return true;
 				}
 				return false;
 			}

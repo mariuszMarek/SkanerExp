@@ -76,10 +76,10 @@
 				{
 					foreach($klucz as $indeks=>$nazwy)
 					{
+						// echo $sql."<br>";
 						$sql 		= " INSERT INTO `rodzajestatosow` (`typy`, `nazwyStatusow_idnazwyStatusow`) 
 										VALUES ('nazwa', (SELECT `idnazwyStatusow` FROM `nazwyStatusow` WHERE `nazwyStatusow` = '".$nazwy."'))";
 						$wynik 		= mysqli_query(self::$polaczenie,$sql);
-						// echo $sql."<br>";
 						if(!$wynik) 	{echo "nie udalo sie dodac rodzaju statosow, przerywam skrypt<br>";echo "<br>".mysqli_error(self::$polaczenie)."#".mysqli_errno(self::$polaczenie); mysqli_query(self::$polaczenie,"ROLLBACK");  return false; exit;}
 						$idTypu 	= mysqli_insert_id(self::$polaczenie);
 			
@@ -93,17 +93,17 @@
 			}
 			if(isset($this->exp) and isset($this->nrKarty) and isset($this->lvl) and isset($this->liczbaPunktow))
 			{
-				$sql = "INSERT INTO `poziomy`(`idKlienta`, `poziom`, `mnoznik`, `exp`)
-						VALUES ('".$this->nrKarty ."', '".$this->lvl ."', '".$this->mnoznik ."', '".($this->exp + $this->liczbaPunktow)."')";
-						$wynik 		= mysqli_query(self::$polaczenie,$sql);
-						// echo $sql."<br>";
+				// echo $sql."<br>";
+				$sql = "INSERT INTO `poziomy`(`idKlienta`, `poziom`, `mnoznik`, `exp`) 
+						VALUES ('".$this->nrKarty ."', '".$this->lvl ."', '".$this->mnoznik ."', '". ($this->exp + ($this->liczbaPunktow * $this->mnoznik)) ."')";
+				$wynik 		= mysqli_query(self::$polaczenie,$sql);
 				if(!$wynik) 	{echo "nie udalo sie dodac poziomu do karty nowej, przerywam skrypt<br>";echo "<br>".mysqli_error(self::$polaczenie)."#".mysqli_errno(self::$polaczenie); mysqli_query(self::$polaczenie,"ROLLBACK"); return false;  exit;}			
 			}
 			
 			if(isset($this->nrKarty ) and isset($this->nick))
 			{
-				$sql 		= "UPDATE  `nrkart` SET `poziomy_idKlienta` = '".$this->nrKarty ."' WHERE `idnrKart` = '".$this->nrKarty."'";	
 				// echo $sql."<br>";
+				$sql 		= "UPDATE  `nrkart` SET `poziomy_idKlienta` = '".$this->nrKarty ."' WHERE `idnrKart` = '".$this->nrKarty."'";	
 				$wynik 		= mysqli_query(self::$polaczenie,$sql);
 				if(!$wynik) 	{echo "nie udalo sie dodac karty nowej, przerywam skrypt<br>";echo "<br>".mysqli_error(self::$polaczenie)."#".mysqli_errno(self::$polaczenie);mysqli_query(self::$polaczenie,"ROLLBACK");  return false; exit;}
 				$idKarty 	= mysqli_insert_id(self::$polaczenie);
@@ -122,6 +122,10 @@
 		
 		}
 		protected function updejtyKarty()
+		{
+		
+		}
+		protected function usunKarteZBazy($nrKarty)
 		{
 		
 		}
