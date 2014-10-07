@@ -20,22 +20,21 @@
 		}
 		public function addCard($elementyKarty)
 		{
-			$this->nick 			= $elementyKarty['K_Nick'];
-			$this->exp  			= $elementyKarty['K_EXP'];
-			$this->lvl				= $elementyKarty['K_LVL'];
-			$this->mnoznik 			= $elementyKarty['K_mnoznik'];
-			$this->liczbaPunktow	= $elementyKarty['K_liczbaPunktow'];
-			$this->nrKarty			= $elementyKarty['K_nrKarty'];
-			$this->troophy			= $elementyKarty['tytuly'];
-			
-			if(!isset($this->idKartyWBazie))		{$this->idKartyWBazie = $this->nrKarty;}
+			if(isset($elementyKarty['K_Nick']))				{$this->nick 			= $elementyKarty['K_Nick'];}
+			if(isset($elementyKarty['K_EXP']))				{$this->exp  			= $elementyKarty['K_EXP'];}
+			if(isset($elementyKarty['K_LVL']))				{$this->lvl				= $elementyKarty['K_LVL'];}
+			if(isset($elementyKarty['K_mnoznik']))			{$this->mnoznik 		= $elementyKarty['K_mnoznik'];}
+			if(isset($elementyKarty['K_liczbaPunktow']))	{$this->liczbaPunktow	= $elementyKarty['K_liczbaPunktow'];}
+			if(isset($elementyKarty['K_nrKarty']))			{$this->nrKarty			= $elementyKarty['K_nrKarty'];}
+			if(isset($elementyKarty['tytuly']))				{$this->troophy			= $elementyKarty['tytuly'];}
+			if(!isset($this->idKartyWBazie))				{$this->idKartyWBazie	= $this->nrKarty;}
 			return $this->inserty();
 		}
 		
-		public function selectCard($nrKarty) // do wyswietlenia karty
+		public function selectCard($nrKarty) // do wyswietlenia zawartosci karty, w tym poziom, nick, exp i inne glupoty
 		{
-			// $sql = "SELECT *
-			
+			if(!isset($this->idKartyWBazie)) {$this->idKartyWBazie = $nrKarty;}
+			if($this->selecty() == false)	 {return false;}
 		}
 		
 		protected function inserty() // na tym etapie wiem ze nie ma karty o danym numerze w bazie
@@ -117,17 +116,38 @@
 			mysqli_query(self::$polaczenie,"COMMIT");
 			return true;
 		}
-		protected function selecty()
-		{
-		
+		protected function selecty() 
+		{	
+			// $sql = "SELECT `idnrKart` FROM `nrkart` WHERE 
 		}
 		protected function updejtyKarty()
 		{
 		
 		}
-		protected function usunKarteZBazy($nrKarty)
+		protected function usunKarteZBazy($nrKarty = NULL)
 		{
-		
+			if($nrKarty == NULL and (!isset($this->idKartyWBazie))) {return FALSE;}
+			if($nrKarty != NULL and (!isset($this->idKartyWBazie)))	{$this->idKartyWBazie;}
+			if($nrKarty != NULL and (isset($this->idKartyWBazie)))
+			{
+				if($nrKarty != $this->idKartyWBazie) {$this->idKartyWBazie = $nrKarty;}
+			}
+			
+			
+			$sql 	= "DELETE FROM `rodzajestatosow` WHERE `rodzajestatosow` IN (SELECT `RodzajeStatosow_idRodzajeStatosow` FROM `nrkart_has_rodzajestatosow` 
+																				WHERE `nrKart_idnrKart` = '".$this->idKartyWBazie ."')";
+			$wynik	= mysqli_query(self::$polaczenie, $sql);
+			if(!$wynik)	{echo "nie udalo sie usunac rekordow z rodzajestatosow dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt"; exit;}
+			
+			$sql 	= "DELETE FROM `nrkart_has_rodzajestatosow` WHERE nrKart_idnrKart = '".$this->idKartyWBazie ."'";
+			$wynik	= mysqli_query(self::$polaczenie, $sql);
+			if(!$wynik)	{echo "nie udalo sie usunac rekordow z nrkart_has_rodzajestatosow dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt"; exit;}
+			
+			$sql 	= "DELETE FROM `nrkart` WHERE `idnrKart` = '".$this->idKartyWBazie ."'";
+			$wynik	= mysqli_query(self::$polaczenie, $sql);
+			if(!$wynik)	{echo "nie udalo sie usunac rekordow z nrkart dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt"; exit;}
+			
+			return true;
 		}
 	}
 

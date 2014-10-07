@@ -1,21 +1,14 @@
 <?php session_start();
 include_once("PHP/class.Zaleznosci.php");
 
-$kontener = new Kontener();
 $nrStrony		 = 0;
 
-if(isset($_GET['nrKarty']))
+if(isset($_POST['nrKarty']))
 {
-	$nrKarty 		= $_GET['nrKarty'];
-	
-	if(!$wynik) {header('refresh: 0; url=http://localhost/skanerEXP/dodajNowaKarteDoBazy.php');}
-	else
-	{
-		unset($_SESSION['nrKarty']);
-		unset($_SESSION['liczbaPunktow']);
-		unset($liczbaPunktow);
-		unset($nrKarty);
-	}
+	echo $_POST['nrKarty']."<br>";
+	$nrKarty 		= $_POST['nrKarty'];
+	$kontener		= new Kontener();
+	// tutaj dopisać usuwanie karty, problem taki że jeszcze trzeba obsłużyć rodzaje błędów, np. brak karty w systemie.
 }
 
 if(isset($_POST['wylogowanie']) == "1")	{$_SESSION["zalogowany"] = 0;}
@@ -33,10 +26,16 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
     <meta name="Generator" 		content="JTHTML 8.4.1">
     <meta name="Robots" 		content="index">
     <link rel="stylesheet" href="styleCSS/css/1.css" type="text/css" media="screen,projection" />
+	<script type="text/javascript">
+	
+	function myFunction() 	{confirm("Na pewno chcesz usunąć kartę z bazy danych ?\nUWAGA PROCES JES NIE ODWRACALNY !");}
+	
+	</script>
   </head>
+  <body>
   <?php 
-  if($brakKartyWBazie == true)	{echo '<body onload="alertFunction(\'Podany numer jest juz w bazie danych\')">';}
-  else							{echo '<body OnLoad="document.obslugaKarty.nrKarty.focus(); document.obslugaKarty.liczbaPunktow.focus();">' ;}
+  // if($brakKartyWBazie == true)	{echo '<body onload="alertFunction(\'Podany numer jest juz w bazie danych\')">';}
+  // else							{echo '<body OnLoad="document.obslugaKarty.nrKarty.focus(); document.obslugaKarty.liczbaPunktow.focus();">' ;}
   
   if($nrStrony == 0)
 	{ ?>
@@ -81,8 +80,11 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 			if($wyswietl > 0)
 			{ 
 				?>
-				<center>Podaj numer karty<form name ="obslugaKarty">
-				<input type="number" min="0" max="99999" step="1" name = "nrKarty">
+				<center>Podaj numer karty 
+				<form name ="obslugaKarty" method="post" onsubmit = "myFunction()">
+					<input type="number" min="0" max="99999" step="1" name = "nrKarty" >
+				</form>
+				</center>
 				<?php
 			} 
 			if($wyswietl == 0){echo "<ul> Za chwilę zostaniesz poproszony o zalogowanie się do systemu</ul>";
@@ -92,6 +94,7 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 			</div>
 	<?php 
 	}	
+	?>
 	</body>
 	
 </html>
