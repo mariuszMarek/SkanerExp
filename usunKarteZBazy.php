@@ -3,11 +3,17 @@ include_once("PHP/class.Zaleznosci.php");
 
 $nrStrony		 = 0;
 
-if(isset($_POST['nrKarty']))
+if(isset($_POST['nrKarty']) and $_POST['nrKarty'] != "")
 {
-	echo $_POST['nrKarty']."<br>";
+	// echo $_POST['nrKarty']."##<br>";
 	$nrKarty 		= $_POST['nrKarty'];
 	$kontener		= new Kontener();
+	$karta = Kontener::nowaKarta();
+	if($karta->usunKarteZBazy($nrKarty))
+	{
+	echo "usunalem karte o numerze ".$nrKarty ."<br>";
+	}
+	echo "dupa, nie ma karty o takim numerze<br>";
 	// tutaj dopisać usuwanie karty, problem taki że jeszcze trzeba obsłużyć rodzaje błędów, np. brak karty w systemie.
 }
 
@@ -28,7 +34,12 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
     <link rel="stylesheet" href="styleCSS/css/1.css" type="text/css" media="screen,projection" />
 	<script type="text/javascript">
 	
-	function myFunction() 	{confirm("Na pewno chcesz usunąć kartę z bazy danych ?\nUWAGA PROCES JES NIE ODWRACALNY !");}
+	function myFunction() 	
+	{
+		var odpowiedz = confirm("Na pewno chcesz usunąć kartę z bazy danych ?\nUWAGA PROCES JES NIE ODWRACALNY !");
+		
+		if(odpowiedz === false)	{document.getElementById("wejNrKarty").value = 'TEST';}
+	}
 	
 	</script>
   </head>
@@ -81,8 +92,8 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 			{ 
 				?>
 				<center>Podaj numer karty 
-				<form name ="obslugaKarty" method="post" onsubmit = "myFunction()">
-					<input type="number" min="0" max="99999" step="1" name = "nrKarty" >
+				<form id ="formTest" name ="obslugaKarty" method="post" onsubmit = "myFunction()">
+					<input id="wejNrKarty" type="number" min="0" max="99999" step="1" name = "nrKarty" >
 				</form>
 				</center>
 				<?php
