@@ -141,7 +141,7 @@
 			
 			if(!self::selectCardFromDataBase())	{return false;}
 			
-			$sql 	= "DELETE FROM `rodzajestatosow` WHERE `rodzajestatosow` IN (SELECT `RodzajeStatosow_idRodzajeStatosow` FROM `nrkart_has_rodzajestatosow` 
+			$sql 	= "DELETE FROM `rodzajestatosow` WHERE `idRodzajeStatosow` IN (SELECT `RodzajeStatosow_idRodzajeStatosow` FROM `nrkart_has_rodzajestatosow` 
 																				WHERE `nrKart_idnrKart` = '".$this->idKartyWBazie ."')";
 			$wynik	= mysqli_query(self::$polaczenie, $sql);
 			if(!$wynik)	{echo "nie udalo sie usunac rekordow z rodzajestatosow dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt<br>"; return false;}
@@ -151,6 +151,10 @@
 			if(!$wynik)	{echo "nie udalo sie usunac rekordow z nrkart_has_rodzajestatosow dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt<br>"; return false;}
 			
 			$sql 	= "DELETE FROM `nrkart` WHERE `idnrKart` = '".$this->idKartyWBazie ."'";
+			$wynik	= mysqli_query(self::$polaczenie, $sql);
+			if(!$wynik)	{echo "nie udalo sie usunac rekordow z nrkart dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt<br>"; return false;}
+			
+			$sql 	= "DELETE FROM `poziomy` WHERE `idKlienta` = '".$this->idKartyWBazie ."'";
 			$wynik	= mysqli_query(self::$polaczenie, $sql);
 			if(!$wynik)	{echo "nie udalo sie usunac rekordow z nrkart dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt<br>"; return false;}
 			

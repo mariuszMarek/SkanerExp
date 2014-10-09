@@ -2,18 +2,16 @@
 include_once("PHP/class.Zaleznosci.php");
 
 $nrStrony		 = 0;
+$udaloSieUsunac	 = 0;
 
 if(isset($_POST['nrKarty']) and $_POST['nrKarty'] != "")
 {
-	// echo $_POST['nrKarty']."##<br>";
+
 	$nrKarty 		= $_POST['nrKarty'];
 	$kontener		= new Kontener();
 	$karta = Kontener::nowaKarta();
-	if($karta->usunKarteZBazy($nrKarty))
-	{
-	echo "usunalem karte o numerze ".$nrKarty ."<br>";
-	}
-	echo "dupa, nie ma karty o takim numerze<br>";
+	if($karta->usunKarteZBazy($nrKarty))	{$udaloSieUsunac = 1;}
+	else									{$udaloSieUsunac = 2;}
 	// tutaj dopisać usuwanie karty, problem taki że jeszcze trzeba obsłużyć rodzaje błędów, np. brak karty w systemie.
 }
 
@@ -40,13 +38,23 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 		
 		if(odpowiedz === false)	{document.getElementById("wejNrKarty").value = 'TEST';}
 	}
+	function wyswietlKomunikat(kodNapisu)
+	{
+		var kod = kodNapisu;
+		switch(kod) {
+			case 'udaloSie':	{alert('Poprawnie usunelo karte z bazy danych');} break;
+			case 'BrakKarty':	{alert('Nie udalo sie poprawnie usunac karte z bazy\nmoże nie być karty o danym numerze');} break;
+			// case 'udaloSie':	{alert('Poprawnie usunelo karte z bazy danych');}
+			}
+	}
 	
 	</script>
   </head>
-  <body>
   <?php 
-  // if($brakKartyWBazie == true)	{echo '<body onload="alertFunction(\'Podany numer jest juz w bazie danych\')">';}
-  // else							{echo '<body OnLoad="document.obslugaKarty.nrKarty.focus(); document.obslugaKarty.liczbaPunktow.focus();">' ;}
+  
+  if($udaloSieUsunac == 0)	{echo "<body>";}
+  if($udaloSieUsunac == 1)  {echo "<body onload=\"wyswietlKomunikat('udaloSie')\">";}
+  if($udaloSieUsunac == 2)	{echo "<body onload=\"wyswietlKomunikat('BrakKarty')\">";}
   
   if($nrStrony == 0)
 	{ ?>
@@ -67,6 +75,7 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 					{
 						?>
 						<li><a href="dodajNowaKarteDoBazy.php"><b>»</b>Dodaj nowego klienta</a></li>
+					<li><a href="usunKarteZBazy.php"><b>»</b>Usuń klienta</a></li>
 						<li><b> </b>Zalogowany</li>
 						<form method = "post">
 						<input type ="hidden" name = "wylogowanie" value = "1">

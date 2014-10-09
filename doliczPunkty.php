@@ -5,14 +5,17 @@ $kontener = new Kontener();
 
 
 
-// $nrKarty		 = 0;
+$nrKarty		 = 0;
 $nrStrony		 = 0;
 // $liczbaPunktow	 = 0;
 if(isset($_GET['nrKarty'])) 		
 {
 	$nrKarty 					= $_GET['nrKarty'];
 	$skanerKart 				= kontener::cardCheck();
-	$nrStrony 					= $skanerKart->setNrKarty($nrKarty);
+	// echo $nrStrony."##<br>";
+	// $nrStrony 					= $skanerKart->setNrKarty($nrKarty);
+	$nrStrony 					= 1;
+	// echo $nrStrony."##<br>";
 	$_SESSION['nrKarty']		= $nrKarty;
 	if($nrStrony == (-1))		{header('refresh: 1; url=http://localhost/skanerEXP/logowanie.php');}
 }
@@ -26,7 +29,10 @@ if(isset($_SESSION['nrKarty']) and isset($_SESSION['liczbaPunktow']))
 	$liczbaPunktow  = $_SESSION['liczbaPunktow'];
 	$skanerKart 	= kontener::cardCheck();
 	$wynik = $skanerKart->savePointsToCard($nrKarty,$liczbaPunktow);
-	if(!$wynik) {header('refresh: 0; url=http://localhost/skanerEXP/dodajNowaKarteDoBazy.php');}
+	// echo $wynik."##LOL<br>";
+	if(!$wynik) {
+	header('refresh: 0; url=http://localhost/skanerEXP/dodajNowaKarteDoBazy.php');
+	}
 	else
 	{
 	// echo $nrStrony." nrStron<br>";
@@ -72,6 +78,7 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 					<?php					}else
 					{?>
 					    <li><a href="dodajNowaKarteDoBazy.php"><b>»</b>Dodaj nowego klienta</a></li>
+						<li><a href="usunKarteZBazy.php"><b>»</b>Usuń klienta</a></li>
 						<li><b> </b>Zalogowany</li>
 						<form method = "post">
 						<input type ="hidden" name = "wylogowanie" value = "1">
@@ -118,8 +125,11 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 					<?php if($wyswietl == 0)
 					{?>
 								<li><a href="logowanie.php"><b>»</b>Nie zalogowany</a></li>
+
 					<?php					}else
 					{?>
+						 <li><a href="dodajNowaKarteDoBazy.php"><b>»</b>Dodaj nowego klienta</a></li>
+						<li><a href="usunKarteZBazy.php"><b>»</b>Usuń klienta</a></li>
 						<li><b> </b>Zalogowany</li>
 						<form method = "post">
 						<input type ="hidden" name = "wylogowanie" value = "1">

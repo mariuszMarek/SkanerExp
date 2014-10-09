@@ -35,6 +35,10 @@ class Kontener
 		$nowaKarta = new KartaEXP(self::$polaczenieBaza);
 		return $nowaKarta;
 	}
+	public function getPolaczenie()
+	{
+		return self::$polaczenieBaza;
+	}
 }
 
 ?>
