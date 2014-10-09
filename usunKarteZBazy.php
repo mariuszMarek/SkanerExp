@@ -103,7 +103,7 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 				?>
 				<center>Podaj numer karty 
 				<form id ="formTest" name ="obslugaKarty" method="post" onsubmit = "myFunction()">
-					<input id="wejNrKarty" type="number" min="0" max="99999" step="1" name = "nrKarty" >
+					<input id="wejNrKarty" type="number" min="0" max="99999" step="1" name = "nrKarty" autofocus>
 				</form>
 				</center>
 				<?php

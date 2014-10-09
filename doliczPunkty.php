@@ -155,7 +155,7 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 			if($wyswietl > 0)
 			{ ?>
 			<center>Podaj ile chcesz punktów doliczyć do karty nr <?php echo $nrKarty."<br><br>" ?><form name ="obslugaKarty">
-			<input type="number" min="50" max="99999" step="50" value="50" name = "liczbaPunktow" autofocus>
+			<input type="number" min="1" max="99999" step="1" value="100" name = "liczbaPunktow" autofocus>
 			<?php
 			
 			
