@@ -1,9 +1,12 @@
 <?php
 include_once("PHP/class.Zaleznosci.php");
+$katalog = "./Wyniki/";
+// if(mkdir($katalog))
 
 $kontener 	= new Kontener();
 $dataTeraz 	= date("Y-m-d_His");
-$filename	= "listaKart_".$dataTeraz.".csv";
+$filename	= $katalog."listaKart_".$dataTeraz.".csv";
+// $filename   = str_replace("-"
 $uchwyt 	= fopen($filename, "w");
 
 $sql 		= "	SELECT nk.nick, p.exp, p.poziom  

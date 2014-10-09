@@ -74,8 +74,9 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 					else
 					{
 						?>
+						<li><a href="zapiszDoPliku.php"><b>»</b>Zapis bazy do pliku</a></li>
 						<li><a href="dodajNowaKarteDoBazy.php"><b>»</b>Dodaj nowego klienta</a></li>
-					<li><a href="usunKarteZBazy.php"><b>»</b>Usuń klienta</a></li>
+						<li><a href="usunKarteZBazy.php"><b>»</b>Usuń klienta</a></li>
 						<li><b> </b>Zalogowany</li>
 						<form method = "post">
 						<input type ="hidden" name = "wylogowanie" value = "1">
@@ -92,7 +93,7 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 				</br>
 				</br>
 				<table  width="500" height="1">
-					<tr> <td><LI><a href="#"><font size="2">dolicz punkty do karty</font></a></LI></td><td><LI><font size="2"><a href="#">odczytaj dane z karty</a></font></LI></td> </tr>
+					<tr> <td><LI><a href="doliczPunkty.php"><font size="2">dolicz punkty do karty</font></a></LI></td><td><LI><font size="2"><a href="#">odczytaj dane z karty</a></font></LI></td> </tr>
 				</table>
 			</div>
 			<div id="content2">

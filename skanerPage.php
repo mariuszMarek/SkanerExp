@@ -31,7 +31,8 @@ include_once("PHP/class.Zaleznosci.php");
 							<li><a href="logowanie.php"><b>»</b>Nie zalogowany</a></li>
 				<?php					}else
 				{?>
-				   <li><a href="dodajNowaKarteDoBazy.php"><b>»</b>Dodaj nowego klienta</a></li>
+					<li><a href="zapiszDoPliku.php"><b>»</b>Zapis bazy do pliku</a></li>
+					<li><a href="dodajNowaKarteDoBazy.php"><b>»</b>Dodaj nowego klienta</a></li>
 					<li><a href="usunKarteZBazy.php"><b>»</b>Usuń klienta</a></li>
 					<li><b> </b>Zalogowany</li>
 					<form method = "post">
