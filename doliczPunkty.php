@@ -28,7 +28,9 @@ if(isset($_SESSION['nrKarty']) and isset($_SESSION['liczbaPunktow']))
 	$nrKarty 		= $_SESSION['nrKarty'];
 	$liczbaPunktow  = $_SESSION['liczbaPunktow'];
 	$skanerKart 	= kontener::cardCheck();
-	$wynik = $skanerKart->savePointsToCard($nrKarty,$liczbaPunktow);
+	$expData		= kontener::expZData();
+	$wynik  		= $skanerKart->savePointsToCard($nrKarty,$liczbaPunktow);
+	$wynik1 		= $expData->addExpDateToCard($nrKarty, $liczbaPunktow);
 	// echo $wynik."##LOL<br>";
 	if(!$wynik) {
 	header('refresh: 0; url=http://localhost/skanerEXP/dodajNowaKarteDoBazy.php');

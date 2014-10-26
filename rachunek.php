@@ -17,6 +17,26 @@ if($_SESSION["zalogowany"] == 0)		{$wyswietl = 0;}
     <meta name="Generator" content="JTHTML 8.4.1">
     <meta name="Robots" content="index">
     <link rel="stylesheet" href="styleCSS/css/1.css" type="text/css" media="screen,projection" />
+
+	<script type="text/javascript" src="jquery/jquery-2.1.1.js"></script>
+	<script type="text/javascript">
+	
+	$(document).ready
+			( 
+				function()
+				{
+					$("#napis").click
+					(
+						function ()
+						{
+							alert('DUPA!!!');
+						}
+					);
+				}
+			);
+			
+	</script>
+  
   </head>
   <body>
         <div id="sidebar">
@@ -30,10 +50,8 @@ if($_SESSION["zalogowany"] == 0)		{$wyswietl = 0;}
 							<li><a href="logowanie.php"><b>»</b>Nie zalogowany</a></li>
 				<?php					}else
 				{?>
-					<li><a href="zapiszDoPliku.php"><b>»</b>Zapis bazy do pliku</a></li>
-					<li><a href="dodajNowaKarteDoBazy.php"><b>»</b>Dodaj nowego klienta</a></li>
-					<li><a href="usunKarteZBazy.php"><b>»</b>Usuń klienta</a></li>
-					<li><a href="rachunek.php"><b>»</b>Otwórz rachunek</a></li>
+					<li><a href="#"><b>»</b>Podsumowanie rachunku</a></li>
+					<li><a href="#"><b>»</b>Dodanie do rachunku</a></li>
 					<li><b> </b>Zalogowany</li>
 					<form method = "post">
 					<input type ="hidden" name = "wylogowanie" value = "1">
@@ -44,7 +62,7 @@ if($_SESSION["zalogowany"] == 0)		{$wyswietl = 0;}
              </ol>
         </div>
         <div id="content">
-             <center>Główna Strona</center>
+             <center id="napis">Główna Strona Systemu rachunków</center>
 				<br>
 				<br>
 				<br>
