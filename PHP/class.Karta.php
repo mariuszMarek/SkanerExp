@@ -90,6 +90,7 @@
 					}
 				}
 			}
+			
 			if(isset($this->exp) and isset($this->nrKarty) and isset($this->lvl) and isset($this->liczbaPunktow))
 			{
 				// echo $sql."<br>";

@@ -34,7 +34,7 @@ if(mysqli_num_rows($wynik) > 0 )
 	//4 nick
 	//5 exp
 	//6 lvl
-	// linkDoGrafiki - dynamicznie tworzony jak i pobieranie info z bazy czy jest + domyslnie może jakiś obrazek ?
+	// linkDoGrafiki - dla kazdego jest taki link
 	$ranking 					   = 0;
 	$poprzedniePunktyDoswiadczenia = 1;
 	$aktualnePunktyEXP		       = 1;
@@ -53,8 +53,14 @@ if(mysqli_num_rows($wynik) > 0 )
 		// {
 		// $ranking++;
 		// }
+		// ;"<img src=""http://exp.szczecin.pl/wp-content/uploads/2014/06/23.gif"" alt=""Onion"" class=""aligncenter size-full"" />"
+		$rok 		= date("Y");
+		$rok 		= "2014";
+		$miesiac	= date("m");
+		$miesiac	= "06";
 		
-		$tabWynikowa[] 	   = $ranking.";linkDoGrafiki;".$nrKarty.";".$nick.";".$exp.";".$poziom.PHP_EOL;
+		$linkDoGrafiki = "\"<img src=\"\"http://exp.szczecin.pl/wp-content/uploads/".$rok."/".$miesiac."/".$nrKarty.".gif\"\" alt=\"\"".$nick."\"\" class=\"\"aligncenter size-full\"\" />\"";
+		$tabWynikowa[] 	   = $ranking.";".$linkDoGrafiki.";".$nrKarty.";".$nick.";".$exp.";".$poziom.PHP_EOL;
 		$poprzedniePunktyDoswiadczenia = $exp;
 	}
 }

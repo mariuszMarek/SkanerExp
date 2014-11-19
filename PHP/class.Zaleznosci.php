@@ -4,6 +4,7 @@ include_once("PHP/class.PolaczZBazaMySql.php");
 include_once("PHP/class.Login.php");
 include_once("PHP/class.Karta.php");
 include_once("PHP/class.PunktyKartaData.php");
+include_once("PHP/class.Statystyki.php");
 
 	
 class Kontener
@@ -21,6 +22,11 @@ class Kontener
 			return self::$instancja;
 		}
 		return self::$instancja;
+	}
+	public static function makeStat()
+	{
+		$stat = new wynikStatystyk(self::$polaczenieBaza);
+		return $stat;
 	}
 	public static function makeLogin()
 	{

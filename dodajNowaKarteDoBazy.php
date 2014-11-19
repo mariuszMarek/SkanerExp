@@ -72,7 +72,7 @@ if(isset($tabKarty))
 	<style>
 .lista {
     float: right;
-	margin: -30px 400px 0px 0px;
+	margin: -30px 200px 0px 0px;
 	display:inline;
 }
 </style>
@@ -144,17 +144,15 @@ if(isset($tabKarty))
 							<option value="Kufel_ranga_3">Kufel ulepszony z grawerunkiem		</option>
 						</select>
 					</span>
-					<li>
-					<input type="text" name="K_Nick" placeHolder="Nick"  			  onkeyup="expand(this,'Nick');" value ="Marian" required>		
-					</li>
-
-					<li><input type="number" step="1"		name="K_EXP"  			placeHolder="EXP" 	onkeyup="expand(this,'EXP');" value = "10" required>		</li>
-					<li><input type="number" step="1" 		name="K_LVL"  			placeHolder="Startowy Poziom"	min="1"	required value = "1">					</li>
-					<li><input type="number" step="1" 		name="K_mnoznik"  		placeHolder="Mnoznik np 1" 		min="1" value = "1" max="1">					</li>
-					<li><input type="number" step="1" 		name="K_nrKarty"  		placeHolder="Numer Karty"		min="1" value = "1"  
-					<?php if(isset($nrKarty)){echo "value=\"".$nrKarty."\"";} ?> required> 															</li>
-					<li><input type="number" step="1" 		name="K_liczbaPunktow"  placeHolder="Liczba punktów na start" min="1"  
-					<?php if(isset($liczbaPunktow)){echo "value=\"".$liczbaPunktow."\"";} ?> required> 												</li>
+					<li> 	<input type="text"		name="K_Nick" 	placeHolder="Nick"  	onkeyup="expand(this,'Nick');" required>					</li>
+					<li>		<input type="number" 	step="1"		name="K_EXP"  			placeHolder="EXP" 	onkeyup="expand(this,'EXP');" required>	</li>
+					<li>	<input type="number" 	step="1" 		name="K_LVL"  			placeHolder="Startowy Poziom"	min="1"	required >			</li>
+					<li>	<input type="number" 	step="1" 		name="K_mnoznik"  		placeHolder="Mnoznik np 1" 		min="1" max="1" value="1">	</li>
+					
+					<li> <input type="number" step="1" 		name="K_nrKarty"  		placeHolder="Numer Karty"		min="1"   
+					<?php if(isset($nrKarty)){echo "value=\"".$nrKarty."\"";} ?> required> 																</li>
+					<li> <input type="number" step="1" 		name="K_liczbaPunktow"  placeHolder="Liczba punktów na start" min="1"  
+					<?php if(isset($liczbaPunktow)){echo "value=\"".$liczbaPunktow."\"";} ?> required> 													</li>
 					
 					<input type="submit" name="dodaj" value="Dodaj kartę"> <input type="reset" value="Wyczyść formularz">
 				</ul>

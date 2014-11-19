@@ -50,6 +50,7 @@ include_once("interfaceSkaner.php");
 					}	
 				}
 				if($mnoznik <= 0 ) {$mnoznik = 1;}
+				$mnoznik = 1;
 				$liczbaPunktow = $liczbaPunktow*$mnoznik;
 				
 				// UPDATE `poziomy`
