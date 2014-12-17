@@ -1,11 +1,11 @@
 <?php
-include_once("inteface_Statystyki.php");
+include_once("interface.Statystyki.php");
 class wynikStatystyk extends Statystyki
 {
 // abstract protected function drukujWynik();
 	// abstract protected function wykonajZapytanie($ktore);
 	// abstract protected function przedzialCzasowy();
-		private $startD; private $endD;
+		private $startD; private $endD; private $wynikZapytania = array();
 		
 		private static $polaczenie;
 		
@@ -13,32 +13,41 @@ class wynikStatystyk extends Statystyki
 		{
 			self::$polaczenie 		= $polacznie;		
 		}
-		public function wykonajZapytanie($ktore)
+		public function wykonajZapytanie($ktore, $jak)
 		{
-			swtich($ktore)
+			switch($ktore)
 			{
-				case "Aktywnosc" : $this->przedzialCzasowy(); break;
+				case "Aktywnosc" : {$this->przedzialCzasowy($jak); break;}
 			}
 		}
 		
-		private function przedzialCzasowy()
+		private function przedzialCzasowy($jak)
 		{
 			$zapytanie = "	SELECT `kartyNumer`, `liczbaExp` 
 							FROM `datadodaniaexp` 
-							WHERE `timeStamp` >= '".$this->startD."' AND `timeStamp` <= '".$this->endD."' 
-							ORDER BY `liczbaExp` DESC";
+							WHERE `timeStamp` >= '".$this->startD."' AND `timeStamp` <= '".$this->endD." 23:59:59' 
+							ORDER BY `liczbaExp` ".$jak;
 			$wynik = mysqli_query(self::$polaczenie,$zapytanie);
 			if(mysqli_num_rows($wynik) > 0)
+			{
+				while($linia = mysqli_fetch_assoc($wynik))
 				{
-					while($linia = mysqli_fetch_assoc($wynik))
-					{
-						$linia = "<tr><td>".$wynik['kartyNumer']."</td><td>".$wynik['liczbaExp']."</td></tr>";
-						echo $linia;
-					}
-					return true;
+					$liniaTMP 	= "<tr><td>".$linia['kartyNumer']."</td><td></td><td></td><td>".$linia['liczbaExp']."</td></tr>";
+					$karta 		= $linia['kartyNumer'];
+					$exp 		= $linia['liczbaExp'];
+					if(isset($this->wynikZapytania[$exp]))		{$this->wynikZapytania[$exp] .= $liniaTMP;}
+					else										{$this->wynikZapytania[$exp] = $liniaTMP;}
 				}
+				return true;
+			}
 		}
-		
+		public function drukujWynik()
+		{
+			foreach($this->wynikZapytania as $punkty => $Linie)
+			{
+				echo $Linie;
+			}
+		}
 		public function setPrzedzialy($min,$max)
 		{
 			$this->startD	= $min;

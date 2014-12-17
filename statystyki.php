@@ -1,5 +1,8 @@
 <?php session_start();
 
+include_once("PHP/class.Zaleznosci.php");
+$kontener = new Kontener();
+
 $wyswietl = 1;
 if(isset($_POST['wylogowanie']) == "1")	{$_SESSION["zalogowany"] = 0;}
 if(!isset($_SESSION["zalogowany"]))		{$_SESSION["zalogowany"] = 0;}
@@ -23,7 +26,7 @@ if($_SESSION["zalogowany"] == 0)		{$wyswietl = 0;}
               <h1><a href="index.php">Menu</a></h1>
              <p> Wybierz poniżej co chcesz zrobić</p>
              <ol id="nay">
-				<li><a href="#"><b>»</b>Statystyki</a></li>
+				<li><a href="statystyki.php"><b>»</b>Statystyki</a></li>
                 <li><a href="skanerPage.php"><b>»</b>Obsługa kart</a></li>
 				<?php if($wyswietl == 0)
 				{?>
@@ -49,7 +52,27 @@ if($_SESSION["zalogowany"] == 0)		{$wyswietl = 0;}
 				<br>
 				<br>
 			<hr>
-				
+				<center>
+				lista najbardziej aktywnych klientów
+				<br>
+				<br>
+				<form name="PodanieDaty">
+				Podaj Date startową <input type="date" name="DataPocz" style="float"><br>
+				Podaj Date końcową  <input type="date" name="DataKonc" style="margin :10px -8px 0px 0px"><br>
+				Podaj Sposób Sortowania  <input type="list" name="DataKonc" style="margin :10px -8px 0px 0px">
+				<br>
+				<br>
+				<table>
+				<tr><td><b>Numer Karty</b></td><td></td><td></td><td><b>EXP</b></td></tr>
+				<?php
+					$stats = Kontener::statystyki();
+					// $stats->setPrzedzialy("2014-10-01",date("Y-m-d"));
+					$stats->setPrzedzialy("2014-10-01","2014-12-17");
+					$stats->wykonajZapytanie("Aktywnosc","DESC");
+					$stats->drukujWynik();
+				?>		
+				</table>
+				</center>
 			</hr>
 		</div>
 

@@ -4,4 +4,6 @@ include_once(".\\PHP\\class.Zaleznosci.php");
 // oby dzialalo
 $nowaKarta = Kontener::nowaKarta();
 // $nowaKarta = 
+
+// pomysl zazucony ;p
 ?>

@@ -92,7 +92,7 @@ if(isset($tabKarty))
               <h1><a href="index.php">Menu</a></h1>
              <p> Wybierz poniżej co chcesz zrobić</p>
              <ol id="nay">
-				<li><a href="#"><b>»</b>Statystyki</a></li>
+				<li><a href="statystyki.php"><b>»</b>Statystyki</a></li>
                 <li><a href="skanerPage.php"><b>»</b>Obsługa kart</a></li>
 				<?php if($wyswietl == 0)
 				{?>

@@ -52,6 +52,11 @@ class Kontener
 		$expData = new expData(self::$polaczenieBaza);
 		return $expData;
 	}
+	public static function statystyki()
+	{
+		$stats = new wynikStatystyk(self::$polaczenieBaza);
+		return $stats;
+	}
 }
 
 ?>
