@@ -23,9 +23,10 @@ class wynikStatystyk extends Statystyki
 		
 		private function przedzialCzasowy($jak)
 		{
-			$zapytanie = "	SELECT `kartyNumer`, `liczbaExp` 
+			$zapytanie = "	SELECT `kartyNumer`, sum(`liczbaExp`) as `liczbaExp`
 							FROM `datadodaniaexp` 
 							WHERE `timeStamp` >= '".$this->startD."' AND `timeStamp` <= '".$this->endD." 23:59:59' 
+							GROUP BY `kartyNumer`
 							ORDER BY `liczbaExp` ".$jak;
 			$wynik = mysqli_query(self::$polaczenie,$zapytanie);
 			if(mysqli_num_rows($wynik) > 0)
