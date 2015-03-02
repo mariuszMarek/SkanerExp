@@ -7,22 +7,6 @@ $wyswietl = 1;
 if(isset($_POST['wylogowanie']) == "1")	{$_SESSION["zalogowany"] = 0;}
 if(!isset($_SESSION["zalogowany"]))		{$_SESSION["zalogowany"] = 0;}
 if($_SESSION["zalogowany"] == 0)		{$wyswietl = 0;}
-
-$dataKonc = date("Y-m-d");
-$dataPocz = date("Y-m")."-01";
-$rodzajSortowania = "ASC";
-
-if(isset($_SESSION['dataKonc']))		{$dataKonc = $_SESSION['dataKonc'];}
-if(isset($_SESSION['dataPocz']))		{$dataPocz = $_SESSION['dataPocz'];}
-
-if(isset($_GET['ASC']))						{$rodzajSortowania = "ASC";}
-if(isset($_GET['DESC']))					{$rodzajSortowania = "DESC";}
-
-if(isset($_GET['DataPocz']) and (!preg_match('/^$/',$_GET['DataPocz'])))				{$dataPocz 		   = $_GET['DataPocz'];}
-if(isset($_GET['DataKonc']) and (!preg_match('/^$/',$_GET['DataPocz'])))				{$dataKonc 		   = $_GET['DataKonc'];}
-echo $rodzajSortowania."<br>";
-echo $dataKonc."<br>";
-echo $dataPocz."<br>";
  ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -73,23 +57,18 @@ echo $dataPocz."<br>";
 				<br>
 				<br>
 				<form name="PodanieDaty">
-				Podaj Date startową <input type="date" name="DataPocz" style="margin : 0px 0px 10px -1px"><br>
-				Podaj Date końcową  <input type="date" name="DataKonc" ><br>
-				<button type="submit" name="ASC" style="margin :10px 0px 0px 0px">ROSCNĄCO</button>
-				<button type="submit" name="DESC">MALEJĄCO</button>
-				</form>
+				Podaj Date startową <input type="date" name="DataPocz" style="float"><br>
+				Podaj Date końcową  <input type="date" name="DataKonc" style="margin :10px -8px 0px 0px"><br>
+				Podaj Sposób Sortowania  <input type="list" name="DataKonc" style="margin :10px -8px 0px 0px">
 				<br>
 				<br>
 				<table>
 				<tr><td><b>Numer Karty</b></td><td></td><td></td><td><b>EXP</b></td></tr>
 				<?php
-				
-					$_SESSION['dataPocz'] = $dataPocz;
-					$_SESSION['dataKonc'] = $dataKonc;
-					
 					$stats = Kontener::statystyki();
-					$stats->setPrzedzialy($dataPocz,$dataKonc);
-					$stats->wykonajZapytanie("Aktywnosc",$rodzajSortowania); // może kiedyś będzie więcej rodzajów statystyk
+					// $stats->setPrzedzialy("2014-10-01",date("Y-m-d"));
+					$stats->setPrzedzialy("2014-10-01","2014-12-17");
+					$stats->wykonajZapytanie("Aktywnosc","DESC");
 					$stats->drukujWynik();
 				?>		
 				</table>

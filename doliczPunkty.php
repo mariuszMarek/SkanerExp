@@ -105,7 +105,7 @@ if($_SESSION["zalogowany"] == 0)	{$wyswietl = 0;}
 			if($wyswietl > 0)
 			{ ?>
 			<center>Podaj numer karty<form name ="obslugaKarty">
-			<input type="number" min="0" max="99999" step="1" name = "nrKarty" required>
+			<input type="number" min="0" max="99999" step="1" name = "nrKarty">
 			<?php
 			
 			
