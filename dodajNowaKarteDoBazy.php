@@ -129,32 +129,31 @@ if(isset($tabKarty))
 			<hr>
 				<form method="post" name="NowaKarta">
 				<ul>
-				
-					<span class="lista" >
-						<p>		Tytuly/Opcje dla danej karty </p>
-						<select multiple size ="8" name="tytuly[]">
-				
-							<option value="Karta_Bohatera" selected >Karta bohatera						</option>
-							<option value="Questy">Questy										</option>
-							<option value="Awatar" selected >Awatar										</option>
-							<option value="20_zetonow">20 zetonow								</option>
-							<option value="Kufel">Kufel											</option>
-							<option value="Kufel_ranga_1">Kufel ulepszony 1						</option>
-							<option value="Kufel_ranga_2_pendrive">Kufel ulepszony 2 i pendrive </option>
-							<option value="Kufel_ranga_3">Kufel ulepszony z grawerunkiem		</option>
-						</select>
-					</span>
-					<li> 	<input type="text"		name="K_Nick" 	placeHolder="Nick"  	onkeyup="expand(this,'Nick');" required>					</li>
-					<li>		<input type="number" 	step="1"		name="K_EXP"  			placeHolder="EXP" 	onkeyup="expand(this,'EXP');" required>	</li>
-					<li>	<input type="number" 	step="1" 		name="K_LVL"  			placeHolder="Startowy Poziom"	min="1"	required >			</li>
-					<li>	<input type="number" 	step="1" 		name="K_mnoznik"  		placeHolder="Mnoznik np 1" 		min="1" max="1" value="1">	</li>
-					
-					<li> <input type="number" step="1" 		name="K_nrKarty"  		placeHolder="Numer Karty"		min="1"   
-					<?php if(isset($nrKarty)){echo "value=\"".$nrKarty."\"";} ?> required> 																</li>
-					<li> <input type="number" step="1" 		name="K_liczbaPunktow"  placeHolder="Liczba punktów na start" min="1"  
-					<?php if(isset($liczbaPunktow)){echo "value=\"".$liczbaPunktow."\"";} ?> required> 													</li>
-					
-					<input type="submit" name="dodaj" value="Dodaj kartę"> <input type="reset" value="Wyczyść formularz">
+					<p>		Nowa karta </p>						
+					<table !important border-spacing="3px 100px">
+					<tr>
+						<td><li>Nick</li></td><td><input type="text" name="K_Nick" placeHolder="Nick" onkeyup="expand(this,'Nick');" required></td>
+					</tr>
+					<tr>
+						<td><li>EXP</li></td><td><input type="number" step="1"	name="K_EXP" placeHolder="EXP" onkeyup="expand(this,'EXP');" required></td>
+					</tr>
+					<tr>
+						<td><li>Startowy LVL</li></td><td><input type="number" step="1" name="K_LVL" placeHolder="Startowy Poziom" min="1" required></td>
+					</tr>
+					<tr>
+						<td><li>Mnożnik</li></td><td><input type="number" step="1" name="K_mnoznik" placeHolder="Mnoznik np 1" min="1" max="1" value="1"></td>
+					</tr>
+					<tr>
+						<td><li>Numer karty</li></td><td><input type="number" step="1" name="K_nrKarty" placeHolder="Numer Karty" min="1" <?php if(isset($nrKarty)){echo "value=\"".$nrKarty."\"";} ?> required> </td>
+					</tr>
+					<tr>
+						<td><li>Liczba EXP'a</li></td><td><input type="number" step="1" name="K_liczbaPunktow" placeHolder="Liczba punktów na start" min="1" 
+						<?php if(isset($liczbaPunktow)){echo "value=\"".$liczbaPunktow."\"";} ?> required> </td>
+					</tr>
+					<tr>
+						<td><input type="submit" name="dodaj" value="Dodaj kartę"></td><td> <input type="reset" value="Wyczyść formularz"></td>
+					</tr>
+					</table>
 				</ul>
 			</hr>
 		</div>

@@ -76,17 +76,17 @@
 					foreach($klucz as $indeks=>$nazwy)
 					{
 						// echo $sql."<br>";
-						$sql 		= " INSERT INTO `rodzajestatosow` (`typy`, `nazwyStatusow_idnazwyStatusow`) 
-										VALUES ('nazwa', (SELECT `idnazwyStatusow` FROM `nazwyStatusow` WHERE `nazwyStatusow` = '".$nazwy."'))";
-						$wynik 		= mysqli_query(self::$polaczenie,$sql);
-						if(!$wynik) 	{echo "nie udalo sie dodac rodzaju statosow, przerywam skrypt<br>";echo "<br>".mysqli_error(self::$polaczenie)."#".mysqli_errno(self::$polaczenie); mysqli_query(self::$polaczenie,"ROLLBACK");  return false; exit;}
-						$idTypu 	= mysqli_insert_id(self::$polaczenie);
+						// $sql 		= " INSERT INTO `rodzajestatosow` (`typy`, `nazwyStatusow_idnazwyStatusow`) 
+										// VALUES ('nazwa', (SELECT `idnazwyStatusow` FROM `nazwyStatusow` WHERE `nazwyStatusow` = '".$nazwy."'))";
+						// $wynik 		= mysqli_query(self::$polaczenie,$sql);
+						// if(!$wynik) 	{echo "nie udalo sie dodac rodzaju statosow, przerywam skrypt<br>";echo "<br>".mysqli_error(self::$polaczenie)."#".mysqli_errno(self::$polaczenie); mysqli_query(self::$polaczenie,"ROLLBACK");  return false; exit;}
+						// $idTypu 	= mysqli_insert_id(self::$polaczenie);
 			
-						$idKarty 	= $this->idKartyWBazie;
+						// $idKarty 	= $this->idKartyWBazie;
 						
-						$sql 		= "INSERT INTO `nrKart_has_RodzajeStatosow` (`nrKart_idnrKart`,`RodzajeStatosow_idRodzajeStatosow`) VALUES ('".$idKarty."', '".$idTypu."')";
-						$wynik 		= mysqli_query(self::$polaczenie,$sql);
-						if(!$wynik) 	{echo "nie udalo sie dodac osiagniec do nowej karty, przerywam skrypt<br>";echo "<br>".mysqli_error(self::$polaczenie)."#".mysqli_errno(self::$polaczenie); mysqli_query(self::$polaczenie,"ROLLBACK"); return false; exit;}
+						// $sql 		= "INSERT INTO `nrKart_has_RodzajeStatosow` (`nrKart_idnrKart`,`RodzajeStatosow_idRodzajeStatosow`) VALUES ('".$idKarty."', '".$idTypu."')";
+						// $wynik 		= mysqli_query(self::$polaczenie,$sql);
+						// if(!$wynik) 	{echo "nie udalo sie dodac osiagniec do nowej karty, przerywam skrypt<br>";echo "<br>".mysqli_error(self::$polaczenie)."#".mysqli_errno(self::$polaczenie); mysqli_query(self::$polaczenie,"ROLLBACK"); return false; exit;}
 					}
 				}
 			}
@@ -142,14 +142,14 @@
 			
 			if(!self::selectCardFromDataBase())	{return false;}
 			
-			$sql 	= "DELETE FROM `rodzajestatosow` WHERE `idRodzajeStatosow` IN (SELECT `RodzajeStatosow_idRodzajeStatosow` FROM `nrkart_has_rodzajestatosow` 
-																				WHERE `nrKart_idnrKart` = '".$this->idKartyWBazie ."')";
-			$wynik	= mysqli_query(self::$polaczenie, $sql);
-			if(!$wynik)	{echo "nie udalo sie usunac rekordow z rodzajestatosow dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt<br>"; return false;}
+			// $sql 	= "DELETE FROM `rodzajestatosow` WHERE `idRodzajeStatosow` IN (SELECT `RodzajeStatosow_idRodzajeStatosow` FROM `nrkart_has_rodzajestatosow` 
+																				// WHERE `nrKart_idnrKart` = '".$this->idKartyWBazie ."')";
+			// $wynik	= mysqli_query(self::$polaczenie, $sql);
+			// if(!$wynik)	{echo "nie udalo sie usunac rekordow z rodzajestatosow dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt<br>"; return false;}
 			
-			$sql 	= "DELETE FROM `nrkart_has_rodzajestatosow` WHERE nrKart_idnrKart = '".$this->idKartyWBazie ."'";
-			$wynik	= mysqli_query(self::$polaczenie, $sql);
-			if(!$wynik)	{echo "nie udalo sie usunac rekordow z nrkart_has_rodzajestatosow dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt<br>"; return false;}
+			// $sql 	= "DELETE FROM `nrkart_has_rodzajestatosow` WHERE nrKart_idnrKart = '".$this->idKartyWBazie ."'";
+			// $wynik	= mysqli_query(self::$polaczenie, $sql);
+			// if(!$wynik)	{echo "nie udalo sie usunac rekordow z nrkart_has_rodzajestatosow dla karty nr ".$this->idKartyWBazie ."<br> zamykam skrypt<br>"; return false;}
 			
 			$sql 	= "DELETE FROM `nrkart` WHERE `idnrKart` = '".$this->idKartyWBazie ."'";
 			$wynik	= mysqli_query(self::$polaczenie, $sql);

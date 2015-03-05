@@ -1,7 +1,9 @@
 <?php
 include_once("PHP/class.Zaleznosci.php");
 $katalog = "./Wyniki/";
-// if(mkdir($katalog))
+if(!is_dir($katalog))	{mkdir($katalog);}
+if(!is_dir($katalog))	{exit(1);}
+
 
 $kontener 	= new Kontener();
 $dataTeraz 	= date("Y-m-d_His");

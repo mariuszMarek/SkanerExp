@@ -38,18 +38,7 @@ include_once("interfaceSkaner.php");
 			if($this->walidacjaKarty($nrKarty))
 			{
 			
-				$mnoznik = 1;
-				$sql = "SELECT `mnoznik` FROM `poziomy` 
-				WHERE `idKlienta` IN (SELECT `poziomy_idKlienta` FROM `nrkart` WHERE idnrKart = '".$nrKarty."')";
-				$wynik = mysqli_query(self::$polaczenie, $sql);
-				if(mysqli_num_rows($wynik) > 0)
-				{
-					while($linia = mysqli_fetch_assoc($wynik))
-					{
-						$mnoznik = $linia['mnoznik'];
-					}	
-				}
-				if($mnoznik <= 0 ) {$mnoznik = 1;}
+
 				$mnoznik = 1;
 				$liczbaPunktow = $liczbaPunktow*$mnoznik;
 				
