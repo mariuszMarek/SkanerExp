@@ -35,6 +35,7 @@
 		{
 			if(!isset($this->idKartyWBazie)) {$this->idKartyWBazie = $nrKarty;}
 			if($this->selectCardFromDataBase() == false)	 {return false;}
+			else {return true;}
 		}
 		
 		protected function inserty() // na tym etapie wiem ze nie ma karty o danym numerze w bazie
@@ -119,17 +120,32 @@
 		}
 		protected function selectCardFromDataBase() 
 		{	
-			$sql = "SELECT `idnrKart` FROM `nrkart` WHERE `idnrKart` = '".$this->idKartyWBazie ."'";
+			$sql = "SELECT * FROM `nrkart` WHERE `idnrKart` = '".$this->idKartyWBazie ."'";
 			// echo $sql;
 			$wynik = mysqli_query(self::$polaczenie, $sql);
 			if($wynik) 
 			{
 				$liczbaWierszy = mysqli_num_rows($wynik);
 				if($liczbaWierszy == 0) return false;
-				return true;
+				
+				$wiersz 	= mysqli_fetch_assoc($wynik);
+				$this->nick = $wiersz['nick'];
+				
+				$sql 		= "SELECT * FROM `poziomy` WHERE `idKlienta` = '".$this->idKartyWBazie ."'";
+				$wynik 		= mysqli_query(self::$polaczenie, $sql);				
+				$wiersz 	= mysqli_fetch_assoc($wynik);
+				
+				$this->exp 	= $wiersz['exp'];
+				$this->lvl 	= $wiersz['poziom'];
+				
+				return true;				
 			}
-			echo "LOL";
+			// echo "LOL";
 			return false;
+		}
+		public function getProperty($name)
+		{
+			return $this->$name;
 		}
 		protected function updejtyKarty() // tutaj cos za pewne bedzie
 		{
